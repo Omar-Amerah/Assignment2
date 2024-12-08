@@ -1,7 +1,6 @@
-
 from RegularItems import RegularItem, PerishableItem
 
-#Encapsulation: Inventory managment class that interact with items
+#Encapsulation: Inventory management class that interact with items
 class InventorySection:
     def __init__(self, name):
         self.name = name
@@ -37,3 +36,4 @@ class InventorySection:
 
         def __str__(self):
             return f'section: {self.name}'
+

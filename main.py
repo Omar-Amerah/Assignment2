@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox, simpledialog
+from datetime import *
 
 from InventoryManagement import InventoryManager
 from Sections import InventorySection
@@ -16,8 +17,8 @@ class WarehouseApp(tk.Tk):
         self.update_inventory()
 
     def create_widgets(self):
-        # Section selection
 
+        # Section selection
         tk.Label(self, text="Select Section").pack()
         self.section_var = tk.StringVar(self)
         self.section_menu = tk.OptionMenu(self, self.section_var, *self.inventory_manager.sections.keys())
@@ -77,34 +78,49 @@ class WarehouseApp(tk.Tk):
     def add_item(self):
         section_name = self.section_var.get()
         name = self.add_item_name.get()
-        quantity = int(self.add_item_quantity.get())
-        if section_name and name and quantity >= 0:
+        try:
+            quantity = int(self.add_item_quantity.get())
+        except ValueError:
+            messagebox.showerror("Error", "Invalid quantity. Please enter a valid number.")
+        if section_name and name and quantity.is_integer() and quantity >= 0:
             if self.add_item_expiry.get():
-                item = PerishableItem(name, quantity, self.add_item_expiry.get())
+                try:
+                    datetime.strptime(self.add_item_expiry.get(), '%d/%m/%Y')
+                except:
+                    messagebox.showerror("Error", "Invalid Date")
+                else:
+                    item = PerishableItem(name, quantity, self.add_item_expiry.get())
             else:
                 item = RegularItem(name, quantity)
             self.inventory_manager.add_item(section_name, item)
             self.update_inventory()
         else:
-            messagebox.showerror("Error", "Invalid item details")
+            messagebox.showinfo("Error", "Invalid item details")
+            raise ValueError("Invalid item details")
 
     def add_stock(self):
         section_name = self.section_var.get()
         name = self.add_item_name.get()
-        amount = int(self.stock_amount.get())
         try:
-            self.inventory_manager.add_stock(section_name, name, amount)
-            self.update_inventory()
+            amount = int(self.stock_amount.get())
+            if amount >= 0:
+                    self.inventory_manager.add_stock(section_name, name, amount)
+                    self.update_inventory()
+            else:
+                messagebox.showinfo("Error", "Input must not be negative")
         except ValueError as e:
             messagebox.showerror("Error", str(e))
 
     def remove_stock(self):
         section_name = self.section_var.get()
         name = self.add_item_name.get()
-        amount = int(self.stock_amount.get())
         try:
-            self.inventory_manager.remove_stock(section_name, name, amount)
-            self.update_inventory()
+            amount = int(self.stock_amount.get())
+            if amount >= 0:
+                self.inventory_manager.remove_stock(section_name, name, amount)
+                self.update_inventory()
+            else:
+                messagebox.showinfo("Error", "Amount must not be negative")
         except ValueError as e:
             messagebox.showerror("Error", str(e))
 
@@ -112,19 +128,18 @@ class WarehouseApp(tk.Tk):
         from_section_name = self.section_var.get()
         to_section_name = self.move_to_var.get()
         item_name = self.move_item_name.get()
-        amount =  int(self.move_amount.get())
 
         try:
-            self.inventory_manager.move_stock(from_section_name, to_section_name, item_name, amount)
-            self.update_inventory()
-        except ValueError as e:
-            messagebox.showerror("Error", str(e))
+            amount = int(self.move_amount.get())
+            if amount >= 0:
+                self.inventory_manager.move_stock(from_section_name, to_section_name, item_name, amount)
+                self.update_inventory()
+            else:
+                messagebox.showerror("Error", "Amount must not be negative")
+        except ValueError:
+            messagebox.showerror("Error", "Input Error")
 
-    def update_inventory(self):
-        self.inventory_text.delete(1.0, tk.END)
-        inventory = self.inventory_manager.get_inventory()
-        for item in inventory:
-            self.inventory_text.insert(tk.END, item + '\n')
+
 
     def update_inventory(self):
         self.inventory_text.delete(1.0, tk.END)
