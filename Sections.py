@@ -1,4 +1,6 @@
-from RegularItems import RegularItem, PerishableItem
+from RegularItems import RegularItem, PerishableItem, FragileItem, AgeRestrictedItem
+import tkinter as tk
+from tkinter import messagebox
 
 #Encapsulation: Inventory management class that interact with items
 class InventorySection:
@@ -7,6 +9,10 @@ class InventorySection:
         self.items = {}
 
     def add_item(self, item):
+        if isinstance(item, FragileItem):
+            messagebox.showinfo("WARNING", "This is a Fragile Item")
+        if isinstance(item, AgeRestrictedItem):
+            messagebox.showinfo("WARNING", "This is a Restricted Item")
         self.items[item.name] = item
 
     def get_item(self, name):

@@ -4,6 +4,12 @@ class InventoryItem:
         self.name = name
         self.quantity = quantity
 
+    def get_name(self):
+        return self.name
+
+    def get_quantity(self):
+        return self.quantity
+
     def add_stock(self, amount):
         self.quantity += amount
 

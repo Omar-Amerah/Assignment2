@@ -1,10 +1,11 @@
+import tkinter
 import tkinter as tk
-from tkinter import messagebox, simpledialog
+from tkinter import messagebox
 from datetime import *
 
 from InventoryManagement import InventoryManager
 from Sections import InventorySection
-from RegularItems import RegularItem, PerishableItem
+from RegularItems import RegularItem, PerishableItem, AgeRestrictedItem, FragileItem
 
 # GUI Implementation with Tkinter
 class WarehouseApp(tk.Tk):
@@ -37,6 +38,15 @@ class WarehouseApp(tk.Tk):
         tk.Label(self, text="Expiry Date (Optional, DD/MM/YYYY)").pack()
         self.add_item_expiry = tk.Entry(self)
         self.add_item_expiry.pack()
+
+        tk.Label(self, text="Age Restriction (Optional, 16 or 18 or 21)").pack()
+        self.add_age_restriction = tk.Entry(self)
+        self.add_age_restriction.pack()
+
+        tk.Label(self, text="Is this Item Fragile (Optional)").pack()
+        var=tkinter.IntVar()
+        self.add_fragility = tk.Checkbutton(self,variable=var)
+        self.add_fragility.pack()
 
         self.add_item_button = tk.Button(self, text="Add Item", command=self.add_item)
         self.add_item_button.pack()
@@ -90,6 +100,17 @@ class WarehouseApp(tk.Tk):
                     messagebox.showerror("Error", "Invalid Date")
                 else:
                     item = PerishableItem(name, quantity, self.add_item_expiry.get())
+            elif self.add_age_restriction.get():
+                try:
+                    age = int(self.add_age_restriction.get())
+                    if age == 16 or age == 18 or age == 21:
+                        item = AgeRestrictedItem(name, quantity, age)
+                    else:
+                        messagebox.showerror("Error", "Age must be 16 or 18 or 21")
+                except:
+                    messagebox.showerror("Error", "Invalid Input")
+            elif self.add_fragility.getvar(str(self.add_fragility.cget("variable"))) == "1":
+                item = FragileItem(name, quantity, True)
             else:
                 item = RegularItem(name, quantity)
             self.inventory_manager.add_item(section_name, item)

@@ -1,6 +1,6 @@
 import unittest
 
-from BaseInventoryManagement import InventoryItem
+from BaseInventoryItem import InventoryItem
 
 class TestBaseInventoryItem(unittest.TestCase):
 
