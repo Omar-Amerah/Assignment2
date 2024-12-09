@@ -53,6 +53,6 @@ class InventoryManager:
     def get_inventory(self):
         inventory = []
         for section in self.sections.values():
-            inventory.append(str(section))
+            inventory.append(str(section.name))
             inventory.extend(str(item) for item in section.items.values())
         return inventory
