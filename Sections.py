@@ -13,7 +13,7 @@ class InventorySection:
             messagebox.showinfo("WARNING", "This is a Fragile Item")
         if isinstance(item, AgeRestrictedItem):
             messagebox.showinfo("WARNING", "This is a Restricted Item")
-        self.items[item.name] = item
+        self.items[item.get_name()] = item
 
     def get_item(self, name):
         return self.items.get(name)

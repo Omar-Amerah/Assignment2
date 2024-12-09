@@ -43,9 +43,8 @@ class WarehouseApp(tk.Tk):
         self.add_age_restriction = tk.Entry(self)
         self.add_age_restriction.pack()
 
-        tk.Label(self, text="Is this Item Fragile (Optional)").pack()
-        var=tkinter.IntVar()
-        self.add_fragility = tk.Checkbutton(self,variable=var)
+        self.add_fragility_var = tk.IntVar()
+        self.add_fragility = tk.Checkbutton(self, text="Is this Item Fragile (Optional)",variable=self.add_fragility_var)
         self.add_fragility.pack()
 
         self.add_item_button = tk.Button(self, text="Add Item", command=self.add_item)
@@ -91,12 +90,12 @@ class WarehouseApp(tk.Tk):
         try:
             quantity = int(self.add_item_quantity.get())
         except ValueError:
-            messagebox.showerror("Error", "Invalid quantity. Please enter a valid number.")
+            messagebox.showerror("Error", "Please enter a valid number.")
         if section_name and name and quantity.is_integer() and quantity >= 0:
             if self.add_item_expiry.get():
                 try:
                     datetime.strptime(self.add_item_expiry.get(), '%d/%m/%Y')
-                except:
+                except ValueError:
                     messagebox.showerror("Error", "Invalid Date")
                 else:
                     item = PerishableItem(name, quantity, self.add_item_expiry.get())
@@ -107,9 +106,11 @@ class WarehouseApp(tk.Tk):
                         item = AgeRestrictedItem(name, quantity, age)
                     else:
                         messagebox.showerror("Error", "Age must be 16 or 18 or 21")
+                        raise ValueError("Not Valid Age")
                 except:
-                    messagebox.showerror("Error", "Invalid Input")
-            elif self.add_fragility.getvar(str(self.add_fragility.cget("variable"))) == "1":
+                    messagebox.showerror("Error", "Input must be a number")
+                    raise ValueError("Not Valid Age")
+            elif self.add_fragility_var.get() == 1:
                 item = FragileItem(name, quantity, True)
             else:
                 item = RegularItem(name, quantity)
@@ -117,7 +118,7 @@ class WarehouseApp(tk.Tk):
             self.update_inventory()
         else:
             messagebox.showinfo("Error", "Invalid item details")
-            raise ValueError("Invalid item details")
+            raise ValueError("Invalid input details")
 
     def add_stock(self):
         section_name = self.section_var.get()
@@ -129,8 +130,9 @@ class WarehouseApp(tk.Tk):
                     self.update_inventory()
             else:
                 messagebox.showinfo("Error", "Input must not be negative")
-        except ValueError as e:
-            messagebox.showerror("Error", str(e))
+                raise ValueError("Invalid input details")
+        except ValueError:
+            messagebox.showerror("Error", "Input must be a number")
 
     def remove_stock(self):
         section_name = self.section_var.get()
@@ -142,6 +144,7 @@ class WarehouseApp(tk.Tk):
                 self.update_inventory()
             else:
                 messagebox.showinfo("Error", "Amount must not be negative")
+                raise ValueError("Value must not be negative")
         except ValueError as e:
             messagebox.showerror("Error", str(e))
 
@@ -157,6 +160,7 @@ class WarehouseApp(tk.Tk):
                 self.update_inventory()
             else:
                 messagebox.showerror("Error", "Amount must not be negative")
+                raise ValueError("Value must not be negative")
         except ValueError:
             messagebox.showerror("Error", "Input Error")
 

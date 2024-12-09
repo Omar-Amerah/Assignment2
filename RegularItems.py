@@ -13,7 +13,7 @@ class PerishableItem(InventoryItem):
         return self.expiry_date
 
     def __str__(self):
-        return f'{self.name} (Expires: {self.expiry_date}): {self.quantity}'
+        return f'{self.name} (Expires: {self.expiry_date}): {self.get_quantity()}'
 
 
 class AgeRestrictedItem(InventoryItem):
@@ -25,7 +25,7 @@ class AgeRestrictedItem(InventoryItem):
         return self.minimum_age
 
     def __str__(self):
-        return f'{self.name} (Minimum Age: {self.minimum_age})'
+        return f'{self.get_name()} (Minimum Age: {self.minimum_age}): {self.get_quantity()}'
 
 class FragileItem(InventoryItem):
     def __init__(self, name, quantity, is_fragile):
@@ -36,4 +36,4 @@ class FragileItem(InventoryItem):
         return self.is_fragile
 
     def __str__(self):
-        return f'{self.name} (Fragile: {self.is_fragile})'
+        return f'{self.get_name()} (Fragile): {self.get_quantity()}'

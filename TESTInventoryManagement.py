@@ -54,9 +54,9 @@ class TestInventoryManagement(unittest.TestCase):
         self.inventory_manager.add_section(section)
         self.inventory_manager.add_item("Electronics", item)
 
-        self.inventory_manager.add_stock("Electronics", item.name, 15)
+        self.inventory_manager.add_stock("Electronics", item.get_name(), 15)
 
-        self.assertEqual(item.quantity, 25)
+        self.assertEqual(item.get_quantity(), 25)
 
 
     def test_remove_stock(self):
@@ -66,9 +66,9 @@ class TestInventoryManagement(unittest.TestCase):
         self.inventory_manager.add_section(section)
         self.inventory_manager.add_item("Electronics", item)
 
-        self.inventory_manager.remove_stock("Electronics", item.name, 5)
+        self.inventory_manager.remove_stock("Electronics", item.get_name(), 5)
 
-        self.assertEqual(item.quantity, 5)
+        self.assertEqual(item.get_quantity(), 5)
 
     def test_move_stock(self):
         section_1 = InventorySection("Electronics")
@@ -79,11 +79,11 @@ class TestInventoryManagement(unittest.TestCase):
         self.inventory_manager.add_section(section_2)
         self.inventory_manager.add_item("Electronics", item)
 
-        self.inventory_manager.move_stock(section_1.name, section_2.name, item.name, 10)
+        self.inventory_manager.move_stock(section_1.name, section_2.name, item.get_name(), 10)
 
         self.assertIn("Phone", section_2.items)
-        self.assertEqual(section_1.get_item("Phone").quantity, 10)
-        self.assertEqual(section_2.get_item("Phone").quantity, 10)
+        self.assertEqual(section_1.get_item("Phone").get_quantity(), 10)
+        self.assertEqual(section_2.get_item("Phone").get_quantity(), 10)
 
 
     def test_get_inventory(self):

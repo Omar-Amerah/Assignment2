@@ -22,24 +22,24 @@ class TestSections(unittest.TestCase):
         item = RegularItem("Phone", 10)
 
         self.section.add_item(item)
-        returned_item = self.section.get_item(item.name)
+        returned_item = self.section.get_item(item.get_name())
 
-        self.assertEqual(returned_item.name, "Phone")
-        self.assertEqual(returned_item.quantity, 10)
+        self.assertEqual(returned_item.get_name(), "Phone")
+        self.assertEqual(returned_item.get_quantity(), 10)
 
     def test_add_stock(self):
         item = RegularItem("Phone", 10)
 
         self.section.add_item(item)
-        self.section.add_stock(item.name, 10)
+        self.section.add_stock(item.get_name(), 10)
 
-        self.assertEqual(item.quantity, 20)
+        self.assertEqual(item.get_quantity(), 20)
 
 
     def test_remove_stock(self):
         item = RegularItem("Phone", 10)
 
         self.section.add_item(item)
-        self.section.remove_stock(item.name, 5)
+        self.section.remove_stock(item.get_name(), 5)
 
-        self.assertEqual(item.quantity, 5)
+        self.assertEqual(item.get_quantity(), 5)
