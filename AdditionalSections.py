@@ -19,7 +19,9 @@ class RestrictedAccessSection(InventorySection):
         self.minimum_age = minimum_age
 
     def add_item(self, item):
-        if (not isinstance(item, AgeRestrictedItem)) and item.get_details() >= self.minimum_age:
+        if not isinstance(item, AgeRestrictedItem):
+            messagebox.showinfo("WARNING", "Only 18+ items can be added to restricted area")
+        elif item.get_details() <= self.minimum_age:
             messagebox.showinfo("WARNING", "Only 18+ items can be added to restricted area")
         else:
             self.items[item.get_name()] = item

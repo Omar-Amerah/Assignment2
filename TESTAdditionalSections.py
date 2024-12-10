@@ -20,6 +20,13 @@ class TestSections(unittest.TestCase):
 
         self.assertIn("Milk", self.refSection.items)
 
+    def test_refrigerated_add_item_fail(self):
+        item = RegularItem("Milk", 10)
+
+        self.refSection.add_item(item)
+
+        self.assertNotIn("Milk", self.refSection.items)
+
     def test_restricted_add_item_successful(self):
         item = AgeRestrictedItem("Orange Juice", 10, 18)
 
@@ -27,4 +34,16 @@ class TestSections(unittest.TestCase):
 
         self.assertIn("Orange Juice", self.resSection.items)
 
+    def test_restricted_add_item_fail(self):
+        item = RegularItem("Orange Juice", 10)
 
+        self.resSection.add_item(item)
+
+        self.assertNotIn("Orange Juice", self.resSection.items)
+
+    def test_restricted_add_item_fail2(self):
+        item = AgeRestrictedItem("Orange Juice", 10, 16)
+
+        self.resSection.add_item(item)
+
+        self.assertNotIn("Orange Juice", self.resSection.items)
