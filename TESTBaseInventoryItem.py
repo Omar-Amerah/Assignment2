@@ -17,12 +17,13 @@ class TestBaseInventoryItem(unittest.TestCase):
 
         self.assertEqual(quantity, 10)
 
-    def test_add_item(self):
+    def test_add_stock(self):
         self.inventory_item.add_stock(10)
 
         self.assertEqual(self.inventory_item.get_quantity(), 20)
 
-    def test_remove_item(self):
+    def test_remove_stock(self):
         self.inventory_item.remove_stock(5)
 
         self.assertEqual(self.inventory_item.get_quantity(), 5)
+

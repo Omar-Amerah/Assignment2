@@ -3,7 +3,7 @@ import unittest
 from RegularItems import RegularItem, PerishableItem, AgeRestrictedItem, FragileItem
 
 
-class TestBaseInventoryItem(unittest.TestCase):
+class RegularItems(unittest.TestCase):
 
     def setUp(self):
         self.regular_item = RegularItem("Phone", 10)
@@ -25,5 +25,4 @@ class TestBaseInventoryItem(unittest.TestCase):
         fragility = self.fragile_item.get_details()
 
         self.assertEqual(fragility, True)
-
 

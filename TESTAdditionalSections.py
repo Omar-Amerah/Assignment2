@@ -5,7 +5,7 @@ from RegularItems import RegularItem, PerishableItem, AgeRestrictedItem
 import unittest
 
 
-class TestSections(unittest.TestCase):
+class TestAdditionalSections(unittest.TestCase):
     def setUp(self):
         self.inventory_manager = InventoryManager()
         self.refSection = RefrigeratedSection("Dairy", -10)
