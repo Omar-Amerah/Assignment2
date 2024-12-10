@@ -3,7 +3,7 @@ from tkinter import messagebox
 from datetime import *
 
 from InventoryManagement import InventoryManager
-from Sections import InventorySection
+from BaseSections import InventorySection
 from RegularItems import RegularItem, PerishableItem, AgeRestrictedItem, FragileItem
 
 # GUI Implementation with Tkinter

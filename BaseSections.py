@@ -1,5 +1,4 @@
 from RegularItems import RegularItem, PerishableItem, FragileItem, AgeRestrictedItem
-import tkinter as tk
 from tkinter import messagebox
 
 #Encapsulation: Inventory management class that interact with items

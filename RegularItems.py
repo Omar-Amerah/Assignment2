@@ -1,15 +1,14 @@
 from BaseInventoryItem import InventoryItem
+
 class RegularItem(InventoryItem):
     print("Item created")
-
-
 
 class PerishableItem(InventoryItem):
     def __init__(self, name, quantity, expiry_date):
         super().__init__(name, quantity)
         self.expiry_date = expiry_date
 
-    def get_expiry(self):
+    def get_details(self):
         return self.expiry_date
 
     def __str__(self):
@@ -21,7 +20,7 @@ class AgeRestrictedItem(InventoryItem):
         super().__init__(name, quantity)
         self.minimum_age = minimum_age
 
-    def get_age(self):
+    def get_details(self):
         return self.minimum_age
 
     def __str__(self):
@@ -32,8 +31,10 @@ class FragileItem(InventoryItem):
         super().__init__(name, quantity)
         self.is_fragile = is_fragile
 
-    def get_fragility(self):
+    def get_details(self):
         return self.is_fragile
 
     def __str__(self):
         return f'{self.get_name()} (Fragile): {self.get_quantity()}'
+
+

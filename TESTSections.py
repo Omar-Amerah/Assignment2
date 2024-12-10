@@ -3,7 +3,7 @@ from unittest.mock import patch
 from tkinter import messagebox
 
 from InventoryManagement import InventoryManager
-from Sections import InventorySection
+from BaseSections import InventorySection
 from RegularItems import RegularItem, FragileItem
 
 class TestSections(unittest.TestCase):

@@ -17,6 +17,9 @@ class InventoryItem:
             raise ValueError("Not enough stock")
         self._quantity -= amount
 
+    def get_details(self):
+        raise NotImplementedError("Child class will implement this.")
+
     def __str__(self):
         return f'{self._name}: {self.get_quantity()}'
 

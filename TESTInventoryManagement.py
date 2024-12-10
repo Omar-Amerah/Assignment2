@@ -1,7 +1,7 @@
 import unittest
 
 from InventoryManagement import InventoryManager
-from Sections import InventorySection
+from BaseSections import InventorySection
 from RegularItems import RegularItem
 
 class TestInventoryManagement(unittest.TestCase):
