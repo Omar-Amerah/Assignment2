@@ -1,4 +1,3 @@
-#Abstraction: Define abstract base class for a generic inventory item
 class InventoryItem:
     def __init__(self, name, quantity):
         self._name = name

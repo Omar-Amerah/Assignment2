@@ -1,8 +1,10 @@
 import unittest
+from unittest.mock import patch
+from tkinter import messagebox
 
 from InventoryManagement import InventoryManager
 from Sections import InventorySection
-from RegularItems import RegularItem
+from RegularItems import RegularItem, FragileItem
 
 class TestSections(unittest.TestCase):
 
@@ -11,12 +13,20 @@ class TestSections(unittest.TestCase):
         self.section = InventorySection("Electronics")
         self.inventory_manager.add_section(self.section)
 
-    def test_add_item(self):
+    def test_add_item_regular(self):
         item = RegularItem("Phone", 10)
 
         self.section.add_item(item)
 
         self.assertIn("Phone", self.section.items)
+
+    def test_add_item_fragile(self):
+        item = FragileItem("Phone", 10, True)
+
+        self.section.add_item(item)
+
+        self.assertIn("Phone", self.section.items)
+
 
     def test_get_item(self):
         item = RegularItem("Phone", 10)

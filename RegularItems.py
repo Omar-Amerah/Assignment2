@@ -13,7 +13,7 @@ class PerishableItem(InventoryItem):
         return self.expiry_date
 
     def __str__(self):
-        return f'{self.name} (Expires: {self.expiry_date}): {self.get_quantity()}'
+        return f'{self.get_name()} (Expires: {self.expiry_date}): {self.get_quantity()}'
 
 
 class AgeRestrictedItem(InventoryItem):
