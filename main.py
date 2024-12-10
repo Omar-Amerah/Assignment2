@@ -4,6 +4,7 @@ from datetime import *
 
 from InventoryManagement import InventoryManager
 from BaseSections import InventorySection
+from AdditionalSections import RefrigeratedSection, RestrictedAccessSection
 from RegularItems import RegularItem, PerishableItem, AgeRestrictedItem, FragileItem
 
 # GUI Implementation with Tkinter
@@ -177,6 +178,8 @@ if __name__ == "__main__":
     # Adding initial sections
     inventory_manager.add_section(InventorySection("Electronics"))
     inventory_manager.add_section(InventorySection("Automotive"))
+    inventory_manager.add_section(RefrigeratedSection("Dairy Products", -5))
+    inventory_manager.add_section(RestrictedAccessSection("Alcoholic Drinks", 18))
 
     app = WarehouseApp(inventory_manager)
     app.mainloop()

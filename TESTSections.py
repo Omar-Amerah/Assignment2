@@ -1,6 +1,4 @@
 import unittest
-from unittest.mock import patch
-from tkinter import messagebox
 
 from InventoryManagement import InventoryManager
 from BaseSections import InventorySection
