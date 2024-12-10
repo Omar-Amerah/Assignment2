@@ -47,7 +47,7 @@ class WarehouseApp(tk.Tk):
         self.add_fragility = tk.Checkbutton(self, text="Is this Item Fragile (Optional)",variable=self.add_fragility_var)
         self.add_fragility.pack()
 
-        self.add_item_button = tk.Button(self, text="Add Item", command=self.add_item)
+        self.add_item_button = tk.Button(self, text="Add/Update Item", command=self.add_item)
         self.add_item_button.pack()
 
 

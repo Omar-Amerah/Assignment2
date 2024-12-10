@@ -4,8 +4,11 @@ from tkinter import messagebox
 #Encapsulation: Inventory management class that interact with items
 class InventorySection:
     def __init__(self, name):
-        self.name = name
+        self._name = name
         self.items = {}
+
+    def get_name(self):
+        return self._name
 
     def add_item(self, item):
         if isinstance(item, FragileItem):

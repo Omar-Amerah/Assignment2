@@ -1,5 +1,5 @@
 from BaseSections import InventorySection
-from RegularItems import RegularItem, PerishableItem, FragileItem, AgeRestrictedItem
+from RegularItems import PerishableItem, AgeRestrictedItem
 from tkinter import messagebox
 
 class RefrigeratedSection(InventorySection):

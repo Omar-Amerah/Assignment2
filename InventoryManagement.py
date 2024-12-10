@@ -3,7 +3,7 @@ class InventoryManager:
         self.sections = {}
 
     def add_section(self, section):
-        self.sections[section.name] = section
+        self.sections[section.get_name()] = section
 
     def get_section(self, name):
         return self.sections.get(name)
